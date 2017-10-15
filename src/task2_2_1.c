@@ -16,4 +16,3 @@ void main(){
     printf("%g\n", b);
     printf("%g\n", d);
 }
-
