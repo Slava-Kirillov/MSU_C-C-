@@ -1,7 +1,3 @@
-//
-// Created by slava on 22.10.17.
-//
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -63,7 +59,7 @@ void deleteElementLikeEndElement(List *list){
     if (element != NULL){
         while (element->next != NULL && flag == 0) {
             if (strcmp(element->word, lastElement->word) == 0) {
-                list->firstElement = element;
+                list->firstElement = element->next;
                 free(element);
                 element = list->firstElement;
             } else {
