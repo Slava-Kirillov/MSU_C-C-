@@ -8,6 +8,7 @@ void main(){
     double x, a, b, bn, d;
     scanf("%lf%lf", &x, &a);
     bn = a;
+    d = 0;
     while (scanf("%lf", &a) == 1){
         d = bn + d * x;
         b = a + bn * x;

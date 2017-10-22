@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 double str2double(char *string){
-    
+
 }
 
 void main(){
