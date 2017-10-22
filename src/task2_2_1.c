@@ -5,15 +5,14 @@
 #include <stdio.h>
 
 void main(){
-    double x, a, b, bn, d;
+    double x, a, p, dp;
     scanf("%lf%lf", &x, &a);
-    bn = a;
-    d = 0;
+    p = a;
+    dp = 0;
     while (scanf("%lf", &a) == 1){
-        d = bn + d * x;
-        b = a + bn * x;
-        bn = b;
+        dp = dp * x + p;
+        p = p * x + a;
     }
-    printf("%g\n", b);
-    printf("%g\n", d);
+    printf("%s = %g\n","Polynomial", p);
+    printf("%s = %g\n","Derivative", dp);
 }
