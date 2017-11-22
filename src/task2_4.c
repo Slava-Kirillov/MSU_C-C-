@@ -4,54 +4,42 @@
 
 #include <stdio.h>
 
-//Вычисляет степень десяти, d - степень, sign - знак степени
-// (0 - отрицательная степень, 1 - положительная степень)
-double tenDegree(int d, int sign){
-    double res = 1;
-    double x = 10;
-    int i;
-    if (sign){
-        for (i = 0; i < d; ++i) {
-            res = res * x;
-        }
-        return res;
-    }else{
-        for (i = 0; i < d; ++i) {
-            res = res * (1/x);
-        }
-        return res;
-    }
-}
-
 double str2double(char *string){
-    int i = 0, n;
-    double dig, res1 = 0, res2 = 0;
-    char *dig_dec;
-    while (*string != '.' && *string != '\0'){
-        ++i;
-        ++string;
+    int sign = 1;
+    double a,x = 10,b = 0,deg = 1;
+    switch (*string){
+        case '\0':
+            return b;
+        case '-':
+            string++;
+            return 1/str2double(string);
+        case '+':
+            string++;
+            return str2double(string);
+        case 'E':
+            string++;
+            deg = str2double(string);
+        case 'e':
+            string++;
+            deg = str2double(string);
     }
-    dig_dec = string;
-    n = 0;
-    while (n < i) {
-        dig = ((double) (*--string - '0')) * tenDegree(n, 1);
-        res1 = res1 + dig;
-        n++;
+    if (*string == '.'){
+        x = 1/10;
+        string++;
     }
-    n = 1;
-    ++dig_dec;
-    while (*dig_dec != '\0'){
-        dig = ((double) (*dig_dec - '0')) * tenDegree(n, 0);
-        res2 = res2 + dig;
-        ++dig_dec;
-        n++;
+    while (*string > '0' && *string < '9'){
+        a = *string - 48;
+        b = b + a*x;
+        string++;
     }
-    return res1 + res2;
+    return (b + str2double(string)) * deg;
 }
 
 void main(){
     char str[100];
+    double b;
     scanf("%s", str);
-    printf("%.10g\n", str2double(str));
+    b = str2double(str);
+    printf("%.10g\n", b);
 }
 
