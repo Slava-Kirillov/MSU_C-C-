@@ -46,10 +46,10 @@ int expr() {
 }
 
 int deg(int a) {
-    int res = 1;
-    int i = 0;
-    int d = mult();
-    for (i; i<d;i++){
+    int n = mult();
+    int i;
+    int res = a;
+    for (i = 1; i < n; i++){
         res *= a;
     }
     return res;
