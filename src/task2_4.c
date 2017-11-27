@@ -5,34 +5,61 @@
 #include <stdio.h>
 
 double str2double(char *string){
-    int sign = 1;
-    double a,x = 10,b = 0,deg = 1;
-    switch (*string){
-        case '\0':
+    double a, b = 0, c = 0, e, x = 10, y = 10;
+    int i, n;
+    if (*string == '\0') {
+        return 0;
+    }
+    while (*string == '0') {
+        string++;
+    }
+    if (*string != '.' && *string != 'E' && *string != 'e') {
+        b = *string - 48;
+        string++;
+        while (*string >= '0' && *string <= '9') {
+            a = *string - 48;
+            b = b * x + a;
+            string++;
+        }
+    }
+    if (*string == '.') {
+        string++;
+        if (*string != 'E' && *string != 'e') {
+            c = *(string) - 48;
+            string++;
+            while (*string >= '0' && *string <= '9') {
+                a = *string - 48;
+                c = c * x + a;
+                string++;
+                y *= 10;
+            }
+            c = c / y;
+        }else{
+            c = 0;
+        }
+        b = b + c;
+        if (*string != '\0') {
+            return b * str2double(string);
+        }else{
             return b;
-        case '-':
-            string++;
-            return 1/str2double(string);
-        case '+':
-            string++;
-            return str2double(string);
-        case 'E':
-            string++;
-            deg = str2double(string);
-        case 'e':
-            string++;
-            deg = str2double(string);
+        }
     }
-    if (*string == '.'){
-        x = 1/10;
+    if (*string == 'E' || *string == 'e') {
         string++;
-    }
-    while (*string > '0' && *string < '9'){
-        a = *string - 48;
-        b = b + a*x;
+        if (*string == '+'){
+            e = 10;
+        }else{
+            e = 0.1;
+        }
         string++;
+        b = e;
+        n = (int) str2double(string);
+        for (i = 1; i < n; i++){
+            b *= e;
+        }
+        return b;
     }
-    return (b + str2double(string)) * deg;
+    return b;
 }
 
 void main(){
