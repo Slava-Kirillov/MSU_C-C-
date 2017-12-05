@@ -65,8 +65,9 @@ double str2double(char *string){
 void main(){
     char str[100];
     double b;
-    scanf("%s", str);
-    b = str2double(str);
-    printf("%.10g\n", b);
+    while (1) {
+        scanf("%s", str);
+        b = str2double(str);
+        printf("%.10g\n", b);
+    }
 }
-

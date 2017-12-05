@@ -10,8 +10,7 @@ typedef struct _node {
     struct _node *left, *right;
 } node;
 
-node* createNode(int val)
-{
+node* create_node(int val) {
     node* nnode = (node*) malloc(sizeof(node));
     nnode->key = val;
     nnode->left = NULL;
@@ -19,41 +18,39 @@ node* createNode(int val)
     return nnode;
 }
 
-node* insertNode(node *root, int val) {
-    if (root == NULL) root = createNode(val);
+node* insert_node(node *root, int val) {
+    if (root == NULL) root = create_node(val);
     if (val < root->key)
         if (root->left == NULL)
-            root->left = createNode(val);
+            root->left = create_node(val);
         else
-            insertNode(root->left, val);
+            insert_node(root->left, val);
     if (val > root->key)
         if (root->right == NULL)
-            root->right = createNode(val);
+            root->right = create_node(val);
         else
-            insertNode(root->right, val);
+            insert_node(root->right, val);
     return root;
 }
 
-node* findNode(node *root, int val)
-{
+node* find_node(node *root, int val) {
     if (root == NULL)
         return NULL;
     if (val == root->key)
         return root;
     if (val < root->key)
-        return findNode(root->left, val);
+        return find_node(root->left, val);
     if (val > root->key)
-        return findNode(root->right, val);
+        return find_node(root->right, val);
 }
 
-int rightMost(node *root) {
+int left_most(node *root) {
     while (root->right != NULL)
         root = root->right;
     return root->key;
 }
 
-node* deleteNode(node *root, int val)
-{
+node* delete_node(node *root, int val) {
     if (root == NULL) return NULL;
     if (root->key == val) {
         if (root->left == NULL && root->right == NULL) {
@@ -70,30 +67,30 @@ node* deleteNode(node *root, int val)
             free(root);
             return temp;
         }
-        root->key = rightMost(root->left);
-        root->left = deleteNode(root->left, root->key);
+        root->key = left_most(root->left);
+        root->left = delete_node(root->left, root->key);
         return root;
     }
     if (val < root->key) {
-        root->left = deleteNode(root->left, val);
+        root->left = delete_node(root->left, val);
         return root;
     }
     if (val > root->key) {
-        root->right = deleteNode(root->right, val);
+        root->right = delete_node(root->right, val);
         return root;
     }
     return root;
 }
 
-void printTree(node *root) {
+void print_tree(node *root) {
     if (root != NULL) {
-        printTree(root->left);
+        print_tree(root->left);
         printf("%d ", root->key);
-        printTree(root->right);
+        print_tree(root->right);
     }
 }
 
-int tenDegree(int d) {
+int ten_degree(int d) {
     int res = 1;
     int x = 10;
     int i;
@@ -112,7 +109,7 @@ int str2int(char *string){
         ++string;
     }
     while (n < i) {
-        dig = (*--string - '0') * tenDegree(n);
+        dig = (*--string - '0') * ten_degree(n);
         res1 = res1 + dig;
         n++;
     }
@@ -125,10 +122,10 @@ void main(){
     int key;
     while(scanf("%s", s) == 1){
         key = str2int(s);
-        if (s[0] == '+') tree = insertNode(tree, key);
-        if (s[0] == '-') tree = deleteNode(tree, key);
+        if (s[0] == '+') tree = insert_node(tree, key);
+        if (s[0] == '-') tree = delete_node(tree, key);
         if (s[0] == '?') {
-            node *result = findNode(tree, key);
+            node *result = find_node(tree, key);
             if (result == NULL) {
                 printf("%d no\n", key);
             }else{
@@ -136,6 +133,6 @@ void main(){
             }
         }
     }
-    printTree(tree);
+    print_tree(tree);
 }
 
