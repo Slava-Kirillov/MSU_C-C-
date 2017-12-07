@@ -51,10 +51,17 @@ int expr() {
 
 int deg(int a) {
     int n = mult();
+    if (curlex == '^'){
+        getlex();
+        n = deg(n);
+    }
     int i;
     int res = a;
     for (i = 1; i < n; i++){
         res *= a;
+    }
+    if (n == 0){
+        return 1;
     }
     return res;
 }

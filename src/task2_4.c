@@ -24,7 +24,7 @@ double str2double(char *string){
     }
     if (*string == '.') {
         string++;
-        if (*string != 'E' && *string != 'e') {
+        if (*string != 'E' && *string != 'e' && *string != '\0') {
             c = *(string) - 48;
             string++;
             while (*string >= '0' && *string <= '9') {
