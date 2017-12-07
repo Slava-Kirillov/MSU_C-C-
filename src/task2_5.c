@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 typedef struct Element{
-    char word[100];
+    char *word;
     struct Element *next;
 } Element;
 
@@ -33,6 +33,7 @@ Element *getLastElem(List *head){
 
 void push(List *pushList, char *data){
     Element *element = malloc(sizeof(struct Element));
+    element->word = malloc(sizeof(data));
     strcpy(element->word,data);
     element->next = NULL;
     Element *lastElement = getLastElem(pushList);
